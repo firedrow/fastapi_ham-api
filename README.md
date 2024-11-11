@@ -5,7 +5,7 @@ This project is just something to work on for a more modern amateur radio record
 ## Plans
 
 - FastAPI
-- MongoDB or SQL?
+- MongoDB ~~or SQL?~~
 - Download FCC callsign data nightly
   - Parse and put in database, if doesn't exist
 - REST API

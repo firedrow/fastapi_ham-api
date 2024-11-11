@@ -1,0 +1,7 @@
+fastapi # project library
+uvicorn # fastapi runtime
+python-dotenv # load .env file
+pymongo # Mongo+SRV support
+dnspython # dns lookup
+motor # Async Engine
+beanie # Mongo ODM
