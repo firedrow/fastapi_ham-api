@@ -35,3 +35,18 @@ This project is just something to work on for a more modern amateur radio record
 - Models
   - repeaters, add sub-document/model for DMR/D-STAR/X-WIRES/etc, different nested information (tones?)
   - callsign based off FCC info
+
+### ToDo
+
+- [ ] Add more features on repeaters
+  - [ ] DMR
+  - [ ] D-STAR
+  - [ ] YSF
+  - [ ] M17
+  - [ ] IRLP
+  - [ ] Echolink
+  - [ ] AllStar
+  - [ ] ATV
+  - [ ] NXDN
+  - [ ] P-25
+  - [ ] WIRES
