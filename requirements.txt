@@ -1,6 +1,10 @@
 fastapi # project library
-uvicorn # fastapi runtime
+fastapi-jwt # Auth Tokens
+authlib # JWT backend
+fastapi-mail # Mail Submission
+bcrypt # Password salt
 python-dotenv # load .env file
+uvicorn # fastapi runtime
 pymongo # Mongo+SRV support
 dnspython # dns lookup
 motor # Async Engine
