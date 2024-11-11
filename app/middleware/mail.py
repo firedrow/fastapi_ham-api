@@ -37,7 +37,7 @@ async def send_verification_email(email: str, token: str) -> None:
 async def send_password_reset_email(email: str, token: str) -> None:
     """Send password reset email."""
     # Change this later to public endpoint
-    url = ENV.get('PROJ_URL') + "/v1/auth/register/reset-password/" + token
+    url = ENV.get('PROJ_URL') + "/v1/auth/reset-password/" + token
     if getenv('MAIL_CONSOLE', 'False'):
         print("POST to " + url)
     else:
