@@ -13,13 +13,13 @@ ACCESS_EXPIRES = timedelta(minutes=15)
 REFRESH_EXPIRES = timedelta(days=30)
 
 access_security = JwtAccessBearer(
-    ENV.get('AUTHJwT_SECRET'),
+    ENV.get('AUTHJWT_SECRET'),
     access_expires_delta=ACCESS_EXPIRES,
     refresh_expires_delta=REFRESH_EXPIRES,
 )
 
 refresh_security = JwtRefreshBearer(
-    ENV.get('AUTHJwT_SECRET'),
+    ENV.get('AUTHJWT_SECRET'),
     access_expires_delta=ACCESS_EXPIRES,
     refresh_expires_delta=REFRESH_EXPIRES,
 )
@@ -32,8 +32,18 @@ async def user_from_credentials(auth: JwtAuthorizationCredentials) -> User | Non
 
 async def user_from_token(token: str) -> User | None:
     """Return the user associated with a token value."""
-    payload = access_security._decode(token)
-    return await User.by_email(payload["subject"]["username"])
+    # Check if jwt_backend exists and use it to decode the token
+    try:
+        payload = access_security.jwt_backend.decode(token, access_security.secret_key)
+    except Exception as e:
+        raise HTTPException(401, "Token is invalid or expired") from e
+
+    # Extract the email or user information from the payload as needed
+    username = payload.get("subject", {}).get("username")
+    if username is None:
+        raise HTTPException(401, "Invalid token payload")
+
+    return await User.by_email(username)
 
 
 async def current_user(
