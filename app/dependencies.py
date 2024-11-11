@@ -29,15 +29,17 @@ async def app_lifespan(app: FastAPI):
     mongo_user = ENV.get('MONGO_USERNAME') # pulled from .env file for Environment Variables
     mongo_pass = ENV.get('MONGO_PASSWORD') # pulled from .env file for Environment Variables
     mongo_url = ENV.get('MONGO_URL')       # pulled from .env file for Environment Variables
-    #client = AsyncIOMotorClient(host=f'mongodb+srv://{mongo_user}:{mongo_pass}@{mongo_url}')
-    #db = client['hamapi'] # which MongoDB is being used
+    client = AsyncIOMotorClient(host=f'mongodb+srv://{mongo_user}:{mongo_pass}@{mongo_url}')
+    db = client['hamapi'] # which MongoDB is being used
 
     logging.info(f'Connecting to MongoDB @ {mongo_url}...')
-    #await init_beanie(database=db,
-    #                  document_models=[
-    #                      # Make sure the last string is the Class name.
-                          #'app.models.blog.posts.Posts',
-    #                  ])
+    await init_beanie(database=db,
+                      document_models=[
+                          # Make sure the last string is the Class name.
+                          'app.models.repeater.Repeaters',
+                          'app.models.repeater.RepeatersCreate',
+                          'app.models.repeater.RepeatersUpdate',
+                      ])
     logging.info('Database connected and Beanie models initialized.')
 
     logging.info('Building app routes...')
@@ -46,6 +48,6 @@ async def app_lifespan(app: FastAPI):
     yield
     # app shutdown
     logging.info('Closing connection to MongoDB...')
-    #client.close()
+    client.close()
 
     logging.info('Shutting down Ham API app...')
