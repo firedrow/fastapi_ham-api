@@ -39,6 +39,9 @@ async def app_lifespan(app: FastAPI):
                           'app.models.repeater.Repeaters',
                           'app.models.repeater.RepeatersCreate',
                           'app.models.repeater.RepeatersUpdate',
+                          'app.models.users.User',
+                          'app.models.users.UserCreate',
+                          'app.models.users.UserUpdate',
                       ])
     logging.info('Database connected and Beanie models initialized.')
 
