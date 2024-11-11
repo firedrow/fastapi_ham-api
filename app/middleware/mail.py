@@ -1,6 +1,6 @@
 """Mail server config."""
 
-from os import environ as ENV
+from os import environ as ENV, getenv
 from fastapi_mail import FastMail, ConnectionConfig, MessageSchema, MessageType
 
 mail_conf = ConnectionConfig(
@@ -20,8 +20,9 @@ mail = FastMail(mail_conf)
 async def send_verification_email(email: str, token: str) -> None:
     """Send user verification email."""
     # Change this later to public endpoint
-    url = ENV.get('PROJ_URL') + "/mail/verify/" + token
-    if ENV.get('MAIL_CONSOLE'):
+    url = ENV.get('PROJ_URL') + "/v1/auth/verify/" + token
+    print(ENV.get('MAIL_CONSOLE'))
+    if getenv('MAIL_CONSOLE', 'False'):
         print("POST to " + url)
     else:
         message = MessageSchema(
@@ -36,8 +37,8 @@ async def send_verification_email(email: str, token: str) -> None:
 async def send_password_reset_email(email: str, token: str) -> None:
     """Send password reset email."""
     # Change this later to public endpoint
-    url = ENV.get('PROJ_URL') + "/register/reset-password/" + token
-    if ENV.get('MAIL_CONSOLE'):
+    url = ENV.get('PROJ_URL') + "/v1/auth/register/reset-password/" + token
+    if getenv('MAIL_CONSOLE', 'False'):
         print("POST to " + url)
     else:
         message = MessageSchema(
