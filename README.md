@@ -22,14 +22,14 @@ This project is just something to work on for a more modern amateur radio record
     - /callsign
       - GET /
     - /repeaters
-      - GET /
-      - POST /
-      - PUT /:id
-      - DELETE /:id
-      - GET /:country
-      - GET /:country/:state
-      - GET /:country/:state/:county
-      - GET /:maidenhead
+      - ~~GET /~~
+      - ~~POST /~~
+      - ~~PUT /:id~~
+      - ~~DELETE /:id~~
+      - ~~GET /:country~~
+      - ~~GET /:country/:state~~
+      - ~~GET /:country/:state/:county~~
+      - ~~GET /:maidenhead~~
     - /location
       - something with maidenhead lookups, gps to maidenhead, maidenhead to gps, maidenhead to maidenhead distances
 - Models
@@ -38,6 +38,8 @@ This project is just something to work on for a more modern amateur radio record
 
 ### ToDo
 
+- [ ] Only owner or admin can delete
+- [ ] Only owner or admin can update
 - [ ] Add more features on repeaters
   - [ ] DMR
   - [ ] D-STAR
@@ -50,3 +52,11 @@ This project is just something to work on for a more modern amateur radio record
   - [ ] NXDN
   - [ ] P-25
   - [ ] WIRES
+- [ ] https://mailtrap.io/pricing/ for smtp relay
+
+## References
+
+- https://github.com/devdupont/fastapi-beanie-jwt
+- https://github.com/fastapi-users/fastapi-users-db-beanie
+  - https://fastapi-users.github.io/fastapi-users/10.1/configuration/full-example/
+  - https://fastapi-users.github.io/fastapi-users/latest/configuration/databases/beanie/
