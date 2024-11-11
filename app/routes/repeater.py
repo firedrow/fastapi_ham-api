@@ -5,13 +5,15 @@ API Router for Repeaters.
 
 from typing import List
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from app.middleware.jwt import current_user
+from app.models.users import User
 from app.models.repeater import Repeaters, RepeatersCreate, RepeatersUpdate
 
 router = APIRouter(prefix='/repeater', tags=['repeater'])
 
 @router.get('/', response_model=List[Repeaters])
-async def get_repeater():
+async def get_repeater(user: User = Depends(current_user)):
     repeaters = await Repeaters.find().to_list()
 
     if not repeaters:
