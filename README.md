@@ -11,12 +11,12 @@ This project is just something to work on for a more modern amateur radio record
 - REST API
   - /v1
     - /auth
-      - POST /login
-      - POST /register
-        - needs approval process
+      - ~~POST /login~~
+      - ~~POST /register~~
+        - ~~needs approval process~~
         - add roles: admin, repeater owner, repeater council (limited to state or specific areas)
-        - GET calls are public
-        - POST requires registration approval
+        - ~~GET calls are public~~
+        - ~~POST requires registration approval~~
         - PUT only by admin or original POSTer
         - DELETE only by admin or original POSTer
     - /callsign
@@ -40,6 +40,7 @@ This project is just something to work on for a more modern amateur radio record
 
 - [ ] Only owner or admin can delete
 - [ ] Only owner or admin can update
+- [ ] Need to set owner on POST of repeaters
 - [ ] Add more features on repeaters
   - [ ] DMR
   - [ ] D-STAR
@@ -53,6 +54,7 @@ This project is just something to work on for a more modern amateur radio record
   - [ ] P-25
   - [ ] WIRES
 - [ ] https://mailtrap.io/pricing/ for smtp relay
+  - [ ] Fix MAIL_CONSOLE = False issue in middleware/mail.py
 
 ## References
 
