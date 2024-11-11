@@ -13,7 +13,7 @@ from app.models.repeater import Repeaters, RepeatersCreate, RepeatersUpdate
 router = APIRouter(prefix='/repeater', tags=['repeater'])
 
 @router.get('/', response_model=List[Repeaters])
-async def get_repeater(user: User = Depends(current_user)):
+async def get_repeater():
     repeaters = await Repeaters.find().to_list()
 
     if not repeaters:
@@ -23,7 +23,7 @@ async def get_repeater(user: User = Depends(current_user)):
 
 
 @router.post('/', response_model=Repeaters)
-async def create_repeater(repeater_data: RepeatersCreate):
+async def create_repeater(repeater_data: RepeatersCreate, user: User = Depends(current_user)):
     new_repeater = Repeaters(
         name = repeater_data.name,
         status = repeater_data.status,
@@ -61,7 +61,7 @@ async def create_repeater(repeater_data: RepeatersCreate):
 
 
 @router.put('/{repeater_id}', response_model=Repeaters)
-async def update_repeater(repeater_id: PydanticObjectId, repeater_data: RepeatersUpdate):
+async def update_repeater(repeater_id: PydanticObjectId, repeater_data: RepeatersUpdate, user: User = Depends(current_user)):
     repeater = await Repeaters.get(repeater_id)
 
     if not repeater:
@@ -113,7 +113,7 @@ async def update_repeater(repeater_id: PydanticObjectId, repeater_data: Repeater
 
 
 @router.delete('/{repeater_id}')
-async def delete_repeater(repeater_id: PydanticObjectId):
+async def delete_repeater(repeater_id: PydanticObjectId, user: User = Depends(current_user)):
     repeater = await Repeaters.get(repeater_id)
 
     if not repeater:
