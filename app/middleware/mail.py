@@ -1,50 +1,44 @@
 """Mail server config."""
 
-from os import environ as ENV, getenv
-from fastapi_mail import FastMail, ConnectionConfig, MessageSchema, MessageType
+from os import environ as ENV
+import mailtrap as mt
 
-mail_conf = ConnectionConfig(
-    MAIL_USERNAME=ENV.get('MAIL_USERNAME'),
-    MAIL_PASSWORD=ENV.get('MAIL_PASSWORD'),
-    MAIL_FROM=ENV.get('MAIL_FROM'),
-    MAIL_PORT=ENV.get('MAIL_PORT'),
-    MAIL_SERVER=ENV.get('MAIL_SERVER'),
-    MAIL_STARTTLS=True,
-    MAIL_SSL_TLS=True,
-    USE_CREDENTIALS=True,
-)
-
-mail = FastMail(mail_conf)
-
+# Getting bool from .env is seen as a string
+mail_console = ENV.get('MAIL_CONSOLE')
+if mail_console == '0':
+    mail_console = False
+if mail_console == '1':
+    mail_console = True
 
 async def send_verification_email(email: str, token: str) -> None:
     """Send user verification email."""
     # Change this later to public endpoint
     url = ENV.get('PROJ_URL') + "/v1/auth/verify/" + token
-    print(ENV.get('MAIL_CONSOLE'))
-    if getenv('MAIL_CONSOLE', 'False'):
+    if mail_console:
         print("POST to " + url)
     else:
-        message = MessageSchema(
-            recipients=[email],
-            subject="Ham API Email Verification",
-            body=f"Welcome to Ham API! We just need to verify your email to begin: {url}",
-            subtype=MessageType.plain,
+        mail = mt.Mail(
+            sender=mt.Address(email='noreply@ham-api.kf0mlb.xyz', name='Ham API No-Reply'),
+            to=[mt.Address(email=email)],
+            subject='Ham API Email Verification',
+            text=f'Welcome to Ham API! We just need to verify your email to begin: {url}'
         )
-        await mail.send_message(message)
+        client = mt.MailtrapClient(token=ENV.get('MAIL_APIKEY'))
+        client.send(mail)
 
 
 async def send_password_reset_email(email: str, token: str) -> None:
     """Send password reset email."""
     # Change this later to public endpoint
     url = ENV.get('PROJ_URL') + "/v1/auth/reset-password/" + token
-    if getenv('MAIL_CONSOLE', 'False'):
+    if mail_console:
         print("POST to " + url)
     else:
-        message = MessageSchema(
-            recipients=[email],
+        mail = mt.Mail(
+            sender=mt.Address(email='noreply@ham-api.kf0mlb.xyz', name='Ham API No-Reply'),
+            to=[mt.Address(email=email)],
             subject="Ham API Password Reset",
-            body=f"Click the link to reset your Ham API account password: {url}\nIf you did not request this, please ignore this email",
-            subtype=MessageType.plain,
+            text=f"Click the link to reset your Ham API account password: {url}\nIf you did not request this, please ignore this email"
         )
-        await mail.send_message(message)
+        client = mt.MailtrapClient(token=ENV.get('MAIL_APIKEY'))
+        client.send(mail)
