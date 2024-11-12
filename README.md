@@ -2,87 +2,32 @@
 
 This project is just something to work on for a more modern amateur radio record lookup.
 
-## Plans
-
-- FastAPI
-- MongoDB ~~or SQL?~~
-- Download FCC callsign data nightly
-  - Parse and put in database, if doesn't exist
-- REST API
-  - /v1
-    - /auth
-      - ~~POST /login~~
-      - ~~POST /register~~
-        - ~~needs approval process~~
-        - add roles: admin, repeater owner, repeater council (limited to state or specific areas)
-        - ~~GET calls are public~~
-        - ~~POST requires registration approval~~
-        - PUT only by admin or original POSTer
-        - DELETE only by admin or original POSTer
-    - /callsign
-      - GET /
-    - /repeaters
-      - ~~GET /~~
-      - ~~POST /~~
-      - ~~PUT /:id~~
-      - ~~DELETE /:id~~
-      - ~~GET /:country~~
-      - ~~GET /:country/:state~~
-      - ~~GET /:country/:state/:county~~
-      - ~~GET /:maidenhead~~
-    - /location
-      - something with maidenhead lookups, gps to maidenhead, maidenhead to gps, maidenhead to maidenhead distances
-- Models
-  - repeaters, add sub-document/model for DMR/D-STAR/X-WIRES/etc, different nested information (tones?)
-  - callsign based off FCC info
-
-### ToDo
-
-- [ ] Only owner or admin can delete
-- [ ] Only owner or admin can update
-- [ ] Need to set owner on POST of repeaters
-- [ ] Add more features on repeaters
-  - [ ] DMR
-  - [ ] D-STAR
-  - [ ] YSF
-  - [ ] M17
-  - [ ] IRLP
-  - [ ] Echolink
-  - [ ] AllStar
-  - [ ] ATV
-  - [ ] NXDN
-  - [ ] P-25
-  - [ ] WIRES
-- [ ] https://mailtrap.io/pricing/ for smtp relay
-  - [ ] Fix MAIL_CONSOLE = False issue in middleware/mail.py, try using 0 for False and 1 for True
-- [ ] Add check on mail setup, if enabled or not, then send emails or pass
-  - [ ] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
-- [ ] Document how to get SALT and AUTHJWT_SECRET
-- [ ] Document how to use API
-  - [ ] Auth
-  - [ ] GET
-  - [ ] POST
-  - [ ] PUT
-  - [ ] DELETE
-
 ## Project Setup
+
+### Virtual Environment
+
+```bash
+python -m venv .venv
+
+source .venv/bin/active # linux
+# or
+.\.venv\Scripts\Activate.ps1 # windows powershell
+
+pip install -r requirements.txt
+```
 
 ### Environment Variables
 
 The API is looking for the `.env` file in the root directory. Variables to define are:
 
-- `PROJ_URL`
-- `MONGO_URL`
-- `MONGO_USERNAME`
-- `MONGO_PASSWORD`
-- `AUTHJWT_SECRET`
-- `SALT`
-- `MAIL_USERNAME`
-- `MAIL_PASSWORD`
-- `MAIL_FROM`
-- `MAIL_PORT`
-- `MAIL_SERVER`
-- `MAIL_CONSOLE`
+- `PROJ_URL` : This URL is sent out in the notification emails, it should match your local or public DNS name, including URI and port if needed.
+- `MONGO_URL` : URI for MongoDB, use part after `@` in Connection String
+- `MONGO_USERNAME` : User name to MongoDB
+- `MONGO_PASSWORD` : User password to MongoDB
+- `AUTHJWT_SECRET` : Used to create JWT tokens
+- `SALT` : Used in password hashing
+- `MAIL_APIKEY` : API Key from Mailtrap.io
+- `MAIL_CONSOLE` : Enable sending email / 0 for False, 1 for True. If **False**, outputs link and token to console.
 
 ## Register/Login Steps
 
@@ -93,7 +38,5 @@ The API is looking for the `.env` file in the root directory. Variables to defin
 
 ## References
 
-- https://github.com/devdupont/fastapi-beanie-jwt
-- https://github.com/fastapi-users/fastapi-users-db-beanie
-  - https://fastapi-users.github.io/fastapi-users/10.1/configuration/full-example/
-  - https://fastapi-users.github.io/fastapi-users/latest/configuration/databases/beanie/
+- [GitHub : devdupont/fastapi-beanie-jwt](https://github.com/devdupont/fastapi-beanie-jwt)
+  - Used as a baseline for integrating JWT into my project.
