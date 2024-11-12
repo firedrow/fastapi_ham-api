@@ -15,10 +15,6 @@
   - [ ] NXDN
   - [ ] P-25
   - [ ] WIRES
-- [x] https://mailtrap.io/pricing/ for smtp relay
-  - [x] Fix MAIL_CONSOLE = False issue in middleware/mail.py, try using 0 for False and 1 for True
-- [x] Add check on mail setup, if enabled or not, then send emails or pass
-  - [x] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
 - [ ] Document how to get SALT and AUTHJWT_SECRET
 - [ ] Document how to use API
   - [ ] Auth
@@ -26,3 +22,8 @@
   - [ ] POST
   - [ ] PUT
   - [ ] DELETE
+- [ ] Fix DocStrings, add more information
+- [x] https://mailtrap.io/pricing/ for smtp relay
+  - [x] Fix MAIL_CONSOLE = False issue in middleware/mail.py, try using 0 for False and 1 for True
+- [x] Add check on mail setup, if enabled or not, then send emails or pass
+  - [x] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
