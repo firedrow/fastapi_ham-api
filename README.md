@@ -54,7 +54,35 @@ This project is just something to work on for a more modern amateur radio record
   - [ ] P-25
   - [ ] WIRES
 - [ ] https://mailtrap.io/pricing/ for smtp relay
-  - [ ] Fix MAIL_CONSOLE = False issue in middleware/mail.py
+  - [ ] Fix MAIL_CONSOLE = False issue in middleware/mail.py, try using 0 for False and 1 for True
+- [ ] Add check on mail setup, if enabled or not, then send emails or pass
+  - [ ] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
+- [ ] Document how to get SALT and AUTHJWT_SECRET
+- [ ] Document how to use API
+  - [ ] Auth
+  - [ ] GET
+  - [ ] POST
+  - [ ] PUT
+  - [ ] DELETE
+
+## Project Setup
+
+### Environment Variables
+
+The API is looking for the `.env` file in the root directory. Variables to define are:
+
+- `PROJ_URL`
+- `MONGO_URL`
+- `MONGO_USERNAME`
+- `MONGO_PASSWORD`
+- `AUTHJWT_SECRET`
+- `SALT`
+- `MAIL_USERNAME`
+- `MAIL_PASSWORD`
+- `MAIL_FROM`
+- `MAIL_PORT`
+- `MAIL_SERVER`
+- `MAIL_CONSOLE`
 
 ## Register/Login Steps
 
