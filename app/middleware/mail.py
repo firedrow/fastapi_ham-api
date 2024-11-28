@@ -4,7 +4,7 @@ from os import environ as ENV
 import mailtrap as mt
 
 # Getting bool from .env is seen as a string
-mail_console = ENV.get('MAIL_CONSOLE')
+mail_console = ENV.get('MAIL_ENABLE')
 if mail_console == '0':
     mail_console = False
 if mail_console == '1':
@@ -18,10 +18,13 @@ async def send_verification_email(email: str, token: str) -> None:
         print("POST to " + url)
     else:
         mail = mt.Mail(
-            sender=mt.Address(email='noreply@ham-api.kf0mlb.xyz', name='Ham API No-Reply'),
+            sender=mt.Address(
+                email=ENV.get('PROJ_EMAIL'),
+                name=ENV.get('PROJ_TEAM_NAME')
+            ),
             to=[mt.Address(email=email)],
-            subject='Ham API Email Verification',
-            text=f'Welcome to Ham API! We just need to verify your email to begin: {url}'
+            subject=f'{ENV.get('PROJ_SITE_NAME')} Email Verification',
+            text=f'Welcome to {ENV.get('PROJ_SITE_NAME')}! We just need to verify your email to begin: {url}'
         )
         client = mt.MailtrapClient(token=ENV.get('MAIL_APIKEY'))
         client.send(mail)
