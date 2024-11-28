@@ -15,9 +15,9 @@
   - [ ] NXDN
   - [ ] P-25
   - [ ] WIRES
-- [ ] Document how to get SALT and AUTHJWT_SECRET
 - [ ] Document how to use API
-  - [ ] Auth
+  - [x] Project Setup
+  - [x] Auth
   - [ ] GET
   - [ ] POST
   - [ ] PUT
@@ -27,3 +27,4 @@
   - [x] Fix MAIL_CONSOLE = False issue in middleware/mail.py, try using 0 for False and 1 for True
 - [x] Add check on mail setup, if enabled or not, then send emails or pass
   - [x] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
+- [x] apianalytics.dev dashboard
