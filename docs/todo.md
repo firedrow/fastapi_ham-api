@@ -28,3 +28,4 @@
 - [x] Add check on mail setup, if enabled or not, then send emails or pass
   - [x] Or does mail_console do the same thing? maybe check if mail_console is True before setting other values
 - [x] apianalytics.dev dashboard
+- [ ] write script for cron to find user registrations in Mongo with no verification for 30+ days, then delete those
