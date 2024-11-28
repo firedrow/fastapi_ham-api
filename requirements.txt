@@ -1,8 +1,8 @@
 fastapi # project library
 fastapi-jwt # Auth Tokens
-authlib # JWT backend
-#fastapi-mail # Mail Submission
+fastapi-analytics # apianalytics.dev
 mailtrap # Mail Submission API
+authlib # JWT backend
 bcrypt # Password salt
 python-dotenv # load .env file
 uvicorn # fastapi runtime
